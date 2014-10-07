@@ -1,0 +1,196 @@
+ {% extends 'core/base.html' %}
+
+{% block title %}Find delicious food that's safe to eat{% endblock %}
+
+{% block body_block %}
+
+<div class='grid grid-pad search-page'>
+	<div id='search-filter-col' class='col-4-12'>
+		<div class='search-panel panel'>
+
+			<div id='filters-container' class='center' style='max-width:320px;'>
+				
+				<h2>Search Filters</h2>
+
+				<div class='panel-row'>
+					<div class='panel-th'>
+						Location
+					</div>
+					<div class='panel-td'>
+						<input type='text' id='location' value='{{ place_str }}'>
+					</div>
+				</div> <!-- Panel-row -->
+
+				<div class='panel-row'>
+					<div class='panel-th'>
+						Search Radius
+					</div>
+					<div class='panel-td'>
+						<select id='radius'>
+							<option value=''>1/2 mile</option>
+							<option value=''>1 mile</option>
+							<option value=''>3 miles</option>
+							<option value=''>5 miles</option>
+							<option value=''>+5 miles</option>
+						</select>
+					</div>
+				</div> <!-- Panel-row -->
+
+				<h2>Ratings</h2>
+
+				<p>Leave rating blank if it doesn't apply to you</p>
+
+				<div class='panel-row' id='overall-panel-row'>
+					<div class='panel-th'>
+						Overall
+					</div>
+					<div class='panel-td'>
+						 <span id='overall-filter' class="star-rating-small">
+							<input type="radio" name="rating" value="1" id='overall-r1'><label for='overall-r1'></label>
+							<input type="radio" name="rating" value="2" id='overall-r2'><label for='overall-r2'></label>
+							<input type="radio" name="rating" value="3" id='overall-r3'><label for='overall-r3'></label>
+							<input type="radio" name="rating" value="4" id='overall-r4'><label for='overall-r4'></label>
+							<input type="radio" name="rating" value="5" id='overall-r5'><label for='overall-r5'></label>
+						</span>
+						and up
+					</div>
+				</div> <!-- Panel-row -->
+
+
+				<div class='panel-row'>
+					<div class='panel-th'>
+						Nuts
+					</div>
+					<div class='panel-td'>
+						 <span id='nuts-filter' class='star-rating-small'>
+							<input type="radio" name="nuts-filter" value="1" id='nuts-r1'><label for='nuts-r1'></label>
+							<input type="radio" name="nuts-filter" value="2" id='nuts-r2'><label for='nuts-r2'></label>
+							<input type="radio" name="nuts-filter" value="3" id='nuts-r3'><label for='nuts-r3'></label>
+							<input type="radio" name="nuts-filter" value="4" id='nuts-r4'><label for='nuts-r4'></label>
+							<input type="radio" name="nuts-filter" value="5" id='nuts-r5'><label for='nuts-r5'></label>
+						</span>
+						and up
+					</div>
+				</div> <!-- Panel-row -->
+
+				<div class='panel-row'>
+					<div class='panel-th'>
+						Gluten
+					</div>
+					<div class='panel-td'>
+						 <span id='gluten-filter' class='star-rating-small'>
+							<input type="radio" name="gluten-filter" value="1" id='gluten-r1'><label for='gluten-r1'></label>
+							<input type="radio" name="gluten-filter" value="2" id='gluten-r2'><label for='gluten-r2'></label>
+							<input type="radio" name="gluten-filter" value="3" id='gluten-r3'><label for='gluten-r3'></label>
+							<input type="radio" name="gluten-filter" value="4" id='gluten-r4'><label for='gluten-r4'></label>
+							<input type="radio" name="gluten-filter" value="5" id='gluten-r5'><label for='gluten-r5'></label>
+						</span>
+						and up
+					</div>
+				</div> <!-- Panel-row -->
+
+				<div class='panel-row'>
+					<div class='panel-th'>
+						Dairy
+					</div>
+					<div class='panel-td'>
+						<span id='dairy-filter' class='star-rating-small'>
+							<input type="radio" name="dairy-filter" value="1" id='dairy-r1'><label for='dairy-r1'></label>
+							<input type="radio" name="dairy-filter" value="2" id='dairy-r2'><label for='dairy-r2'></label>
+							<input type="radio" name="dairy-filter" value="3" id='dairy-r3'><label for='dairy-r3'></label>
+							<input type="radio" name="dairy-filter" value="4" id='dairy-r4'><label for='dairy-r4'></label>
+							<input type="radio" name="dairy-filter" value="5" id='dairy-r5'><label for='dairy-r5'></label>
+						</span>
+						and up
+					</div>
+				</div> <!-- Panel-row -->
+
+				<div class='panel-row'>
+					<div class='panel-th'>
+						Vegetarian
+					</div>
+					<div class='panel-td'>
+					 	<span id='vegetarian-filter' class='star-rating-small'>
+						<input type="radio" name="vegetarian-filter" value="1" id='vegetarian-r1'><label for='vegetarian-r1'></label>
+						<input type="radio" name="vegetarian-filter" value="2" id='vegetarian-r2'><label for='vegetarian-r2'></label>
+						<input type="radio" name="vegetarian-filter" value="3" id='vegetarian-r3'><label for='vegetarian-r3'></label>
+						<input type="radio" name="vegetarian-filter" value="4" id='vegetarian-r4'><label for='vegetarian-r4'></label>
+						<input type="radio" name="vegetarian-filter" value="5" id='vegetarian-r5'><label for='vegetarian-r5'></label>
+						</span>
+						and up
+					</div>
+				</div> <!-- Panel-row -->	
+
+				<div class='panel-row'>
+					<div class='panel-th'>
+						Vegan
+					</div>
+					<div class='panel-td'>
+						<span id='vegan-filter' class='star-rating-small'>
+							<input type="radio" name="vegan-filter" value="1" id='vegan-r1'><label for='vegan-r1'></label>
+							<input type="radio" name="vegan-filter" value="2" id='vegan-r2'><label for='vegan-r2'></label>
+							<input type="radio" name="vegan-filter" value="3" id='vegan-r3'><label for='vegan-r3'></label>
+							<input type="radio" name="vegan-filter" value="4" id='vegan-r4'><label for='vegan-r4'></label>
+							<input type="radio" name="vegan-filter" value="5" id='vegan-r5'><label for='vegan-r5'></label>
+						</span>
+						and up
+					</div>
+				</div> <!-- Panel-row -->	
+
+			</div>
+
+			<button class='button button-grey-outline center' id='hide-filters'>Hide Search Filters</button>
+			<button class='button button-grey-outline center' id='show-filters'>Show Search Filters</button>
+		</div> <!--Search-panel-->
+	
+		<div class='panel' id='small-map-panel'>
+		</div>
+
+
+	</div><!--Column-->
+
+
+	<div id='search-results-col' class='col-8-12'>
+		<div class='results panel'>
+
+			<div class='button-group' id='map-toggle'>
+				<button class='button-small button-grey-outline active' id='large-map'>Large Map</button>
+				<button class='button-small button-grey-outline' id='small-map'>Small Map</button>
+				{# <button class='button-small button-grey-outline' id='no-map'>List View</button> #}
+			</div>
+
+			<button class='button-small button-grey-outline' id='hide-map'>Hide Map</button>
+
+			<div id='search-map-canvas' class='center'></div>
+
+		{% for rest in restaurants %}
+
+			<div class='summary' id='restid{{rest.id}}'>
+				<a href=""><h2>{{ rest.name }}</h2></a>
+				<div class='panel-row'>
+					<div class='inline'>
+						<img src='http://lorempixel.com/100/100/food' />
+					</div>
+					<div class='inline'>
+
+							<span class='{{ rest.overall_star_class }}'></span>
+							<span>{{ rest.num_reviews }} reviews</span>
+							<br/>
+
+					{% for review in rest.recent_reviews %}
+						<span><h4>"{{ review.title }}"</h4></span>
+						<span>{{ review.date_added }}</span><br/>
+					{% endfor %}
+
+					</div>
+				</div>
+			</div>
+				
+		{% endfor %}
+
+		</div>
+	</div>
+</div> {# GRID PAD #}
+
+{% endblock body_block %}
+
