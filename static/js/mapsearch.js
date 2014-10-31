@@ -16,12 +16,12 @@ function initialize() {
 	geocoder.geocode({
 		'address': place
 	}, function(results, status){
-		console.log('Has it geocoded? ' + google.maps.GeocoderStatus.OK)
+		console.log('Has it geocoded? ' + google.maps.GeocoderStatus.OK);
 		if (status == google.maps.GeocoderStatus.OK)
 		{
-			console.log('Yay it worked!')
-			map.setCenter(results[0].geometry.location)
-			console.log('#####' + mapCenter)
+			console.log('Yay it worked!');
+			map.setCenter(results[0].geometry.location);
+			console.log('#####' + results[0].geometry.location);
 		} 
 		else {
 			map.setCenter(new google.maps.LatLng(51.4516,-2.5876));

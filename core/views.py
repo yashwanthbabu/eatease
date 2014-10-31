@@ -133,3 +133,23 @@ def search_list(request):
 	restaurants_list = json.dumps(restaurants_dict)
 
 	return HttpResponse(restaurants_list)
+
+
+#######################
+#   RESTAURANT PAGE   #
+#######################
+def restaurant(request, rest_url):
+	context = RequestContext(request)
+
+	rest_name = URLToString(rest_url)
+	rest_details = Restaurant.objects.filter(name=rest_name)
+
+
+	return render_to_response(
+		'core/restaurant.html',
+		{
+			'rest_name': rest_name,
+			'rest_details': rest_details,
+		},
+		context,
+	)

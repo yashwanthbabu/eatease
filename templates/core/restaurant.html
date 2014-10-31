@@ -1,0 +1,16 @@
+ {% extends 'core/base.html' %}
+
+{% block title %}Find delicious food that's safe to eat{% endblock %}
+
+{% block body_block %}
+	
+
+Name: {{ rest_name }}
+
+{% for deet in rest_details %}
+<div>{{ deet }}</div>
+{% endfor %}
+
+
+{% endblock body_block %}
+
