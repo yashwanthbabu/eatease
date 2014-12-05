@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+
+{% load static %}
+
+<html>
+<head>
+	<title>Eatease</title>
+	<link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700,400italic|Montserrat:400,700|Pacifico|Open+Sans:400italic,400,900' rel='stylesheet' type='text/css'>
+	<link rel="stylesheet" type="text/css" href="{% static 'css/normalize.css' %}">
+	<link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}">
+
+</head>
+<body>
+
+
+<header>
+	<div class="container">
+		<a href="{% url 'main.views.index' %}"><h1>eatease</h1></a>
+		<nav>
+			<ul>
+				<a href="">
+					<li>Log In</li>
+				</a>
+				<a href="">
+					<li class="signup">Sign Up</li>
+				</a>
+			</ul>
+		</nav>
+	</div>
+</header>
+
+<div class="filler"></div>
+
+
+{% block body_block %}
+{% endblock %}
+
+<footer></footer>
+
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+
+<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAZcXdX2ylekKUi5F4HCVWh9cRw8hTuicQ&libraries=places"></script>
+<script type="text/javascript" src="{% static 'js/main.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/infobox.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/mapsearch.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/stars.js' %}"></script>
+
+</body>
+</html>

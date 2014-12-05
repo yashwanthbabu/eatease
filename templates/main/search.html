@@ -1,0 +1,220 @@
+{% extends 'main/base.html' %}
+
+{% block body_block %}
+
+<nav class="search-nav">
+	<div class="container">
+		<form action="" method="POST" onsubmit="placeUpdate();return false;">
+		{% csrf_token %}
+			<input type="text" id="search-location" value="{{ place_str }}" placeholder="Where would you like to go?" />
+			<button type="submit">Search</button>
+		</form>
+		<form action="" method="POST">
+		{% csrf_token %}
+			<input type="hidden" name="lat" value="Test Lat" />
+			<input type="hidden" name="lng" value="Test Lng" />
+		</form>
+	</div>
+</nav>
+
+<div class="container">
+
+	<div class="filter-panel">
+		<div class="top">
+			<h3>Filter Results</h3>
+		</div>
+		<div class="SRcol">
+			<h3>Search Radius</h3>
+			<select id='searchRadius'>
+			{% for item in sr_list %}
+				{% for key, val in item.items %}
+				<option value='{{ key }}' {{ val.selected }} >{{ val.text }}</option>	
+				{% endfor %}
+			{% endfor %}
+			</select>
+		</div>
+
+		<div class="MRcol">
+			<h3>Minimum Rating</h3>
+
+			<div class="filter-row">
+				<label class="title">Overall</label>
+				<span id="overall-filter" class="star-rating-small-red">
+				{% for val in overall_list %}
+					<input type="radio" name="overallrating" value="{{val.rating}}" id="overall-r{{val.rating}}" {{val.checked}} />
+					<label for='overall-r{{val.rating}}'></label>
+				{% endfor %}
+				</span>
+			</div>
+			
+			<div class="filter-row">
+				<label class="title">Nuts</label>
+				<span id="nuts-filter" class="star-rating-small">
+				{% for nut in nuts_list %}
+					<input type="radio" name="nutsrating" value="{{nut.rating}}" id="nuts-r{{nut.rating}}" {{nut.checked}} />
+					<label for='nuts-r{{nut.rating}}'></label>
+				{% endfor %}
+				</span>
+			</div>
+			
+			<div class="filter-row">
+				<label class="title">Gluten</label>
+				<span id="gluten-filter" class="star-rating-small">
+				{% for glu in gluten_list %}
+					<input type="radio" name="glutenrating" value="{{glu.rating}}" id="gluten-r{{glu.rating}}" {{glu.checked}} />
+					<label for='gluten-r{{glu.rating}}'></label>
+				{% endfor %}
+				</span>
+			</div>
+			
+			<div class="filter-row">
+				<label class="title">Vegetarian</label>
+				<span id="veg-filter" class="star-rating-small">
+				{% for veg in veg_list %}
+					<input type="radio" name="vegrating" value="{{veg.rating}}" id="veg-r{{veg.rating}}" {{veg.checked}} />
+					<label for='veg-r{{veg.rating}}'></label>
+				{% endfor %}
+				</span>
+			</div>
+			
+			<div class="filter-row">
+				<label class="title">Vegan</label>
+				<span id="vegan-filter" class="star-rating-small">
+				{% for ve in vegan_list %}
+					<input type="radio" name="veganrating" value="{{ve.rating}}" id="vegan-r{{ve.rating}}" {{ve.checked}} />
+					<label for='vegan-r{{ve.rating}}'></label>
+				{% endfor %}
+				</span>
+			</div>
+			
+			<div class="filter-row">
+				<label class="title">Dairy</label>
+				<span id="dairy-filter" class="star-rating-small">
+				{% for dai in dairy_list %}
+					<input type="radio" name="dairyrating" value="{{dai.rating}}" id="dairy-r{{dai.rating}}" {{dai.checked}} />
+					<label for='dairy-r{{dai.rating}}'></label>
+				{% endfor %}
+				</span>
+			</div>
+		</div>
+
+		<button class="filled-red" id="clear-filters">Clear Filters</button>
+	</div>
+
+
+
+
+	<div class="results-panel">
+		<div class="top">
+			<button class="filled-grey active" id="map-view">Map</button>
+			<button class="filled-grey" id="list-view">List</button>
+		</div>
+		<div id="search-map-canvas" style="height:500px;width:100%;"></div>
+		
+{% if rest %}
+	{% for rest in restaurants %}
+			<div class="summary">
+				<a href=""><h3>{{rest.name}}</h3></a>
+				<div class="summary-pic">
+					<div>
+						<span class="{{rest.overall_star_class}}"></span>
+					</div>
+				</div>
+				<div class="summary-content">
+					<div class="ratings-table">
+		{% for s in rest.all_stars %}
+			{% if s.star_class %}
+						<div class="table-row">
+							<div class="table-cell">
+								{{ s.name }}
+							</div>
+							<div class="table-cell">
+								<span class="{{s.star_class}}"></span>
+							</div>
+						</div>
+			{% endif %}
+		{% endfor %}
+					</div>
+
+					<div class="address">
+						{{ rest.address | linebreaks }}
+						<p>{{rest.postcode}}</p>
+					</div>
+				</div>
+				<p>"{{rest.recent_review_1}}"<span> &ndash; {{ rest.date_added_1 | date }}</span></p>
+				<p>"{{rest.recent_review_2}}"<span> &ndash; {{ rest.date_added_2 | date }}</span></p>
+			</div>
+	{% endfor %}
+{% else %}
+	<h3>Sorry. There are no restaurants matching your search terms.</h3>
+{% endif %}
+
+
+<!--
+<span class="noRatings"></span>
+		GET VARS: {{ getVars }}
+		<br/><br/>
+		RESTAURANTS: {{rest}}<br/>
+		<br/>
+		<br/>
+		{% for r in rest %}
+		NAME: {{r.name}}<br/>
+		NUMBER: {{r.phone_number}}<br/>
+		ADDRESS: {{r.address}}<br/>
+		OVERALL: {{r.avg_overall}}<br/>
+		NUTS: {{r.avg_nuts}}<br/>
+		GLUTEN: {{r.avg_gluten}}<br/>
+		VEG: {{r.avg_veg}}<br/>
+		VEGAN: {{r.avg_vegan}}<br/>
+		DAIRY: {{r.avg_dairy}}<br/>
+		COORDS: {{r.coords}}<br/>
+		TEST: {{r.test}}
+		<br/><br/>
+
+		{% endfor %}
+
+		<br/><br/>
+
+		{% for rev in reviews %}
+			TITLE: {{ rev.restaurant }}<br/>
+			NUTS: {{ rev.nuts_rating }}<br/>
+			GLUTEN: {{ rev.gluten_rating }}<br/>
+			VEG: {{ rev.vegetarian_rating }}<br/>
+			VEGAN: {{ rev.vegan_rating }}<br/>
+			DAIRY: {{ rev.dairy_rating }}<br/><br/>
+		{% endfor %}
+-->
+<h3>{{location}}</h3>
+
+	</div>
+
+
+</div>
+
+
+
+<script type="text/javascript">
+var restArray = [
+
+{% for r in rest %}
+{
+	name:    "{{ r.name }}",
+	overall: "{{ r.avg_overall }}",
+	overall_star_class: "{{ r.overall_star_class }}",
+	address: "{{ r.address }}",
+	nuts:    "{{r.avg_nuts}}",
+	gluten:  "{{r.avg_gluten}}",
+	veg:     "{{r.avg_veg}}",
+	vegan:   "{{r.avg_vegan}}",
+	dairy:   "{{r.avg_dairy}}",
+	lat:     "{{ r.lat }}",
+	lng:     "{{ r.lng }}"
+},
+{% endfor %}
+
+]
+</script>
+
+
+
+{% endblock %}

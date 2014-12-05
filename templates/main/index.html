@@ -1,0 +1,71 @@
+{% extends 'main/base.html' %}
+
+{% block body_block %}
+
+<div class='full-width'>
+	<div class="darken">
+		<div class="container">
+			<h2>LET'S EAT!</h2>
+			<h3><span class="ee-font">eatease</span> is the best way to find great eating places in your local area which cater for your dietary requirements</h3>
+			<div class="search-container">
+				<form action="/search/" method="POST" id="front-page-search" onsubmit="placeSearch();return false;">
+				{% csrf_token %}
+					<input type="text" id='location' placeholder="Search here" name='location' />
+					<button type="submit" id='front-page-submit'>Search</button>
+				</form>				
+			</div>
+		</div>
+	</div>
+</div>
+
+<section class="front-page">
+	<div class="container">
+		<h2>Recent Reviews</h2>
+		<div class="row">
+		{% for review in recent_reviews_1 %}
+			<div class="col-3" >
+				<div class="feed-panel">
+					<a href=""><h3>{{ review.restaurant }}</h3></a>
+					<div>
+						<span class="star-big-red-{{ review.overall_rating }}"></span>
+						<h4>"{{ review.title }}"</h4>
+						<p> - {{ review.user }}, {{ review.date_added }}</p>
+						<button class="filled-red center">Read Review</button>						
+					</div>
+				</div>
+			</div>
+		{% endfor %}
+		</div>
+		<div class="row">
+		{% for review in recent_reviews_2 %}
+			<div class="col-3" >
+				<div class="feed-panel">
+					<a href=""><h3>{{ review.restaurant }}</h3></a>
+					<div>
+						<span class="star-big-red-{{ review.overall_rating }}"></span>
+						<h4>"{{ review.title }}"</h4>
+						<p> - {{ review.user }}, {{ review.date_added }}</p>
+						<button class="filled-red center">Read Review</button>					
+					</div>	
+				</div>
+			</div>
+		{% endfor %}
+		</div>
+	</div>
+</section>
+
+<section class="front-page" id='howItWorks'>
+	<div class="container">
+		<h2>How It Works</h2>
+		<p>Messenger bag aesthetic roof party sustainable tattooed. Cronut meggings viral jean shorts, forage roof party skateboard selfies photo booth street art American Apparel church-key migas kitsch. Chillwave sartorial DIY lo-fi, beard cornhole readymade. Lomo banh mi small batch Echo Park paleo, try-hard Pitchfork Portland Truffaut kitsch Kickstarter organic leggings. 90's Bushwick four loko shabby chic organic. Craft beer cronut plaid, High Life post-ironic chillwave heirloom pop-up raw denim PBR 8-bit mixtape. Direct trade shabby chic wayfarers Tonx.</p>
+		<p>Austin ennui authentic, hoodie tousled Kickstarter Schlitz PBR&B wayfarers pickled post-ironic locavore sriracha distillery. Lumbersexual butcher YOLO, selvage craft beer listicle tilde cronut whatever fap Vice Shoreditch chia aesthetic freegan. Butcher sustainable vinyl, meh sriracha PBR XOXO wayfarers whatever jean shorts plaid ennui. Bespoke whatever 90's Bushwick, Cosby sweater chillwave single-origin coffee you probably haven't heard of them hoodie. Four loko Portland butcher listicle viral Echo Park 90's lomo. Brunch four dollar toast craft beer, taxidermy tattooed PBR DIY gluten-free chillwave. Typewriter cliche cred, vinyl Pinterest ennui Tonx keytar retro plaid polaroid jean shorts farm-to-table church-key.</p>
+	</div>
+</section>
+
+
+
+<script type="text/javascript">
+</script>
+
+
+{% endblock %}

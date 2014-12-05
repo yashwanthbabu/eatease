@@ -1,0 +1,186 @@
+.search-nav {
+	height: 54px;
+	width: 100%;
+	background: #ddd;
+	padding: 7px 0;
+	margin-bottom: 20px;
+	input {
+		@media (min-width: 768px) {
+			width: 380px;
+		}
+		width: 220px;
+		margin-right: 7px;
+		height: 40px;
+		border: 0;
+		&:focus {
+			outline: none;
+		}
+	}
+	button {
+		font-weight: bold;
+		height: 40px;
+		background: #aaa;
+		color: #fff;
+		width: 70px;
+		display: inline-block;
+		transition: background 0.2s;
+		&:hover {
+			background: darken(#aaa, 3%);
+		}
+	}
+}
+//////////////////////////
+//     FILTER PANEL     //
+//////////////////////////
+.filter-panel {
+	margin-bottom: 20px;
+	.top {
+		background: #ddd;
+		height: 40px;
+		margin-bottom: 10px;
+		h3 {
+			font-size: 1.4em;
+			font-weight: 700;
+		}
+	}
+	h3 {
+		font-size: 1.3em;
+		margin: 0 0 0.5em;
+		color:$grey;
+	}
+	label.title {
+		display: table-cell;
+		padding-right: 10px;
+		padding-bottom: 5px;
+	}
+	span {
+		display: table-cell;
+	}
+	select {
+		border: 1px solid #bbb;
+		padding: 2px;
+		background: #fff;
+		@include border-radius(2px);
+		margin-bottom: 1em;
+	}
+	#clear-filters {
+		width: 100%;
+		margin-top: 5px;
+	}
+	.SRcol {
+		display: inline-block;
+		vertical-align: top;
+		margin-right: 2em;
+	}
+	.MRcol {
+		display: inline-block;
+		vertical-align: top;
+		margin-bottom: 2em;
+	}
+	@media (min-width: 768px) {
+		display: inline-block;
+		width: 25%;
+		vertical-align: top;
+		padding-right: 10px;
+		margin-right: -3px;
+		.SRcol {
+			display: block;
+			margin-right: 0;
+			vertical-align: none;
+		}
+		.MRcol {
+			display: block;
+			vertical-align: none;
+		}
+	}
+}
+.top {
+	background: #ddd;
+	height: 40px;
+	margin-bottom: 10px;
+	padding: 10px;
+}
+.filter-row {
+	display: table-row;
+}
+//////////////////////////
+//     RESULTS PANEL     //
+//////////////////////////
+.results-panel {
+	@media (min-width: 768px){
+		display: inline-block;
+		width: 74%;
+		vertical-align: top;		
+	}
+	margin-bottom: 40px;
+	.top {
+		padding-top: 7px;
+		button {
+			float: right;
+			clear: left;
+			margin-left: 5px;
+		}
+	}
+}
+.summary {
+	border: 1px solid #ddd;
+	background: #fff;
+	@include border-radius(2px);
+	margin: 10px 0 0 0;
+	overflow: auto;
+	h3 {
+		text-align: left;
+		font-weight: 700;
+		background: #ddd;
+		padding: 10px;
+		margin: 0;
+	}
+	.summary-pic {
+		float: left;
+		width: 190px;
+		height: 200px;
+		background: url('http://lorempixel.com/300/300/city');
+		margin-right: 15px;
+		div {
+			padding: 9px 10px 10px 10px;
+			background: rgba(30,40,40,0.85);
+			span {
+				display: block;
+				margin: 0 auto;
+			}
+		}
+	}
+	.summary-content {
+		overflow: auto;
+		padding: 10px 10px 10px 0;
+		margin-bottom: 10px;
+		.ratings-table {
+			float: left;
+			margin-right: 10px;
+			font-weight: 700;
+			.table-cell:nth-child(1) {
+				padding-right: 10px;
+			}
+		}
+		.address {
+			font-size: 0.9em;
+			float: right;
+			margin: 10px 10px 10px 10px;
+		}
+	}
+	p {
+		font-style: italic;
+		margin-bottom: 0.7em;
+		span {
+			font-style: normal;
+			font-size: 0.9em;
+		}
+	}
+}
+
+.noRatings:before {
+	display: block;
+	margin-top: 8px;
+	color: #888;
+	content: "No ratings yet";
+}

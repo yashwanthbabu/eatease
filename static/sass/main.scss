@@ -1,0 +1,234 @@
+/////////////////
+//   IMPORTS   //
+/////////////////
+
+@import "compass/reset";
+@import "compass/css3";
+
+//@import "susy";
+
+////////////////////
+//   VARAIABLES   //
+////////////////////
+
+// COLOURS
+$green: #2e9881;
+$pink: #db535a;
+$text: #555;
+$grey: #666;
+
+// FONTS
+$pacifico: 'Pacifico', serif;
+//$lilly: 'lillyregular', serif;
+$source: 'Source Sans Pro', Helvetica, Arial, sans-serif;
+$open: 'Open Sans', Helvetica, Arial, sans-serif;
+$montserrat: 'Montserrat', Helvetica, Arial, sans-serif;
+/*
+@font-face {
+    font-family: 'lillyregular';
+    src: url('../fonts/Lilly__-webfont.eot');
+    src: url('../fonts/Lilly__-webfont.eot?#iefix') format('embedded-opentype'),
+         url('../fonts/Lilly__-webfont.woff') format('woff'),
+         url('../fonts/Lilly__-webfont.ttf') format('truetype'),
+         url('../fonts/Lilly__-webfont.svg#lillyregular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+*/
+
+ 
+/////////////////////
+//   CORE STYLES   //
+/////////////////////
+*, *::before, *::after {
+	box-sizing: border-box;
+}
+body {
+	font-family: $open;
+	color: $text;
+	background: lighten($green, 57%);
+	font-size: 14px;
+}
+.container {
+	margin: 0 10px;
+	@media (min-width: 768px) {
+		margin: 0 auto;
+		width: 90%;
+		max-width: 1140px;
+		min-width: 748px;
+	}
+}
+.center {
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+}
+.row {
+	@media (min-width: 768px) {
+		margin-bottom: 20px;
+	}
+}
+// 3 COLUMNS
+.col-3 {
+	vertical-align: top;
+	margin-bottom: 20px;
+	@media (min-width: 768px) {
+		width: 33%;
+		padding: 0 10px;
+		display: inline-block;
+		margin-right: -2px;
+		margin-bottom: 0;
+	}
+}
+a {
+	text-decoration: none;
+	color: $text;
+}
+header {
+	background: $green;
+	height: 60px;
+	position: fixed;
+	width: 100%;
+	z-index: 1000;
+	nav {
+		display: inline-block;
+		float: right;
+		clear: left;
+		margin-top: 12px;
+		ul {
+			list-style-type: none;
+			margin: 0;
+			li {
+				display: inline-block;
+				font-weight: bold;
+				padding: 8px 12px;
+				color: #fff;
+				border-radius: 2px;
+				transition: background, color 0.2s;
+				font-size: 0.95em;
+				&:hover {
+					color: lighten($green, 47%);
+				}
+			}
+			.signup {
+				border: 2px solid #fff;
+				margin-left: 10px;
+				&:hover {
+					color: lighten($green, 47%);
+					border-color: lighten($green, 47%);
+				}
+			}
+		}
+	}
+}
+.filler {
+	height: 60px;
+}
+footer {
+	background: #444;
+	height: 200px;;
+}
+h1 {
+	color: #fff;
+	font-family: $pacifico;
+	line-height: 1.2em;
+	font-size: 3.6em;
+	display: inline-block;
+}
+h2 {
+	font-family: $montserrat;
+	font-size: 2.8em;
+	margin: 0.9em 0;
+	color: $grey;
+	font-weight: 700;
+	text-align: center;
+}
+h3 {
+	font-family: $montserrat;
+	font-size: 1.8em;
+	margin-top: 1em;
+}
+p {
+	margin-bottom: 1em;
+}
+.inline {
+	display: inline-block;
+	vertical-align: top;
+}
+input[type=text] {
+	border: 1px solid #ccc;
+	border-radius: 2px;
+	padding: 8px;
+}
+// BUTTONS
+button {
+	border: 0;
+	border-radius: 2px; 
+}
+button.filled-red {
+	padding: 6px 10px;
+	background: $pink;
+	color: #fff;
+	@include transition(background, .2s);
+	&:hover {
+		background: darken($pink, 4%);
+	}
+	&:focus {
+		outline: none;
+	}
+}
+button.filled-green {
+	padding: 6px 10px;
+	background: $green;
+	color: #fff;
+	@include transition(background, .2s);
+	&:hover {
+		background: darken($green, 4%);
+	}
+	&:focus {
+		outline: none;
+	}
+}
+button.filled-grey {
+	padding: 6px 10px;
+	background: #aaa;
+	color: #fff;
+	@include transition(background, .2s);
+	&:hover {
+		background: darken(#aaa, 4%);
+	}
+	&:focus {
+		outline: none;
+	}
+}
+button.filled-grey.active {
+	background: $green;
+	&:hover {
+		background: $green;
+	}
+}
+button.outline {
+	padding: 6px 10px;
+	background: #fff;
+	border: 1px solid $green;
+	color: $green;
+	text-transform: uppercase;
+	@include transition(background, .2s);
+	&:hover {
+		color: #fff;
+		background: $green;
+	}
+	&:focus {
+		outline: none;
+	}
+}
+.table-row {
+	display: table-row;
+}
+.table-cell {
+	display: table-cell;
+}
+
+@import '_stars';
+@import '_index';
+@import '_search';
