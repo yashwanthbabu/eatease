@@ -9,11 +9,6 @@
 			<input type="text" id="search-location" value="{{ place_str }}" placeholder="Where would you like to go?" />
 			<button type="submit">Search</button>
 		</form>
-		<form action="" method="POST">
-		{% csrf_token %}
-			<input type="hidden" name="lat" value="Test Lat" />
-			<input type="hidden" name="lng" value="Test Lng" />
-		</form>
 	</div>
 </nav>
 
@@ -111,10 +106,10 @@
 		</div>
 		<div id="search-map-canvas" style="height:500px;width:100%;"></div>
 		
-{% if rest %}
+{% if restaurants %}
 	{% for rest in restaurants %}
 			<div class="summary">
-				<a href=""><h3>{{rest.name}}</h3></a>
+				<a href="/restaurants/{{rest.id}}/"><h3>{{rest.name}}</h3></a>
 				<div class="summary-pic">
 					<div>
 						<span class="{{rest.overall_star_class}}"></span>
@@ -150,44 +145,9 @@
 {% endif %}
 
 
-<!--
-<span class="noRatings"></span>
-		GET VARS: {{ getVars }}
-		<br/><br/>
-		RESTAURANTS: {{rest}}<br/>
-		<br/>
-		<br/>
-		{% for r in rest %}
-		NAME: {{r.name}}<br/>
-		NUMBER: {{r.phone_number}}<br/>
-		ADDRESS: {{r.address}}<br/>
-		OVERALL: {{r.avg_overall}}<br/>
-		NUTS: {{r.avg_nuts}}<br/>
-		GLUTEN: {{r.avg_gluten}}<br/>
-		VEG: {{r.avg_veg}}<br/>
-		VEGAN: {{r.avg_vegan}}<br/>
-		DAIRY: {{r.avg_dairy}}<br/>
-		COORDS: {{r.coords}}<br/>
-		TEST: {{r.test}}
-		<br/><br/>
-
-		{% endfor %}
-
-		<br/><br/>
-
-		{% for rev in reviews %}
-			TITLE: {{ rev.restaurant }}<br/>
-			NUTS: {{ rev.nuts_rating }}<br/>
-			GLUTEN: {{ rev.gluten_rating }}<br/>
-			VEG: {{ rev.vegetarian_rating }}<br/>
-			VEGAN: {{ rev.vegan_rating }}<br/>
-			DAIRY: {{ rev.dairy_rating }}<br/><br/>
-		{% endfor %}
--->
 <h3>{{location}}</h3>
 
 	</div>
-
 
 </div>
 
@@ -196,7 +156,7 @@
 <script type="text/javascript">
 var restArray = [
 
-{% for r in rest %}
+{% for r in restaurants %}
 {
 	name:    "{{ r.name }}",
 	overall: "{{ r.avg_overall }}",
@@ -208,7 +168,9 @@ var restArray = [
 	vegan:   "{{r.avg_vegan}}",
 	dairy:   "{{r.avg_dairy}}",
 	lat:     "{{ r.lat }}",
-	lng:     "{{ r.lng }}"
+	lng:     "{{ r.lng }}",
+	recentRev1: "{{ r.recent_review_1 }}",
+	recentRev2: "{{ r.recent_review_2 }}"
 },
 {% endfor %}
 

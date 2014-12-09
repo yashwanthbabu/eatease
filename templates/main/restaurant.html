@@ -1,0 +1,88 @@
+{% extends 'main/base.html' %}
+
+{% block body_block %}
+
+
+
+<div class='rest-page-header'>
+	<div class="container">
+		<h2>{{rest.name}}
+			<span class="{{ rest.overall_star_class }}} header-rating"></span>
+			<span class="header-num">{{rest.num_reviews}} reviews</span>
+		</h2 style="display: inline-block;">
+		
+		<div class="img-holder">
+			<img src="http://lorempixel.com/200/200/city" alt="Picture of {{rest.name}}"/>
+		</div>
+
+		<div class="rest-header-content">
+			<div class="ratings-table">
+			{% for r in rest.all_stars %}
+				<div class="table-row">
+					<div class="table-cell">
+						{{ r.name }}
+					</div>
+					<div class="table-cell">
+						<span class="{{r.star_class}}"></span>
+					</div>
+				</div>
+			{% endfor %}
+			</div>
+		</div>
+
+		<div class="address">
+			<p>{{ rest.address }}</p>
+			<p>{{ rest.postcode }}</p>
+			<p>{{ rest.phone_number }}</p>
+			<button class="filled-red">Write a Review</button>
+		</div>		
+	</div>
+</div>
+
+
+<div class="container">
+	<div class="row">
+		<div class="col-2of3">
+			<div class="top">
+				Sort results: TODO Add filters
+			</div>
+		{% for r in reviews %}
+			<div class="review-panel">
+				<div class="review-user">
+					<!--<img src="http://lorempixel.com/100/100/cats" alt="User profile picture" />-->
+					<div style="background:#bbb;height:100px;width:100px;border-radius:100px;" class="center"></div>
+					<p> {{ r.user }} </p>
+				</div>
+				<div class="review-main bubble">
+					<h4>{{ r.title }}</h4>
+					<div class="ratings-table">
+					{% for s in r.all_stars %}
+						<div class="table-row">
+							<div class="table-cell">
+								{{ s.name }}
+							</div>
+							<div class="table-cell">
+								<span class="{{s.star_class}}"></span>
+							</div>
+						</div>
+					{% endfor %}
+					</div>
+					<p class="review-short">{{ r.overall_text | truncatewords_html:20 }} <br/><br/><span class="more">+ More</span></p>
+					<p class="review-long">{{ r.overall_text }}<br/><br/><span class="less">- Less</span></p>
+				</div>
+			</div>
+		{% endfor %}
+		</div>
+		<div class="col-1of3">
+			<div id="rest-page-map-canvas"></div>
+		</div>
+	</div>
+</div>
+
+<script type="text/javascript">
+	var restPageLat = {{ rest.lat }};
+	var restPageLng = {{ rest.lng }};
+	var restName = "{{ rest.name }}";
+</script>
+
+{% endblock body_block %}

@@ -5,8 +5,6 @@
 @import "compass/reset";
 @import "compass/css3";
 
-//@import "susy";
-
 ////////////////////
 //   VARAIABLES   //
 ////////////////////
@@ -43,11 +41,21 @@ $montserrat: 'Montserrat', Helvetica, Arial, sans-serif;
 *, *::before, *::after {
 	box-sizing: border-box;
 }
+html {
+	height: 100%;
+}
 body {
 	font-family: $open;
 	color: $text;
 	background: lighten($green, 57%);
 	font-size: 14px;
+	height: 100%;
+}
+.body-container {
+	height: auto;
+	min-height: 100%;
+	padding-bottom: 200px;
+	margin-bottom: -200px;
 }
 .container {
 	margin: 0 10px;
@@ -79,6 +87,9 @@ body {
 		margin-right: -2px;
 		margin-bottom: 0;
 	}
+}
+.ee-font {
+	font-family: $pacifico;
 }
 a {
 	text-decoration: none;
@@ -125,7 +136,7 @@ header {
 	height: 60px;
 }
 footer {
-	background: #444;
+	background: #777;
 	height: 200px;;
 }
 h1 {
@@ -141,11 +152,15 @@ h2 {
 	margin: 0.9em 0;
 	color: $grey;
 	font-weight: 700;
-	text-align: center;
 }
 h3 {
 	font-family: $montserrat;
 	font-size: 1.8em;
+	margin-top: 1em;
+}
+h4 {
+	font-family: $montserrat;
+	font-size: 1.3em;
 	margin-top: 1em;
 }
 p {
@@ -222,13 +237,81 @@ button.outline {
 		outline: none;
 	}
 }
+button.large {
+	padding: 12px 16px;
+	font-size: 1.2em;
+	font-family: $montserrat;
+}
+button:disabled {
+	cursor: not-allowed;
+}
 .table-row {
 	display: table-row;
 }
 .table-cell {
 	display: table-cell;
 }
+.bubble 
+{
+	position: relative;
+	padding: 10px;
+	background: #eee;
+	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+	border-radius: 3px;
+	//border: #DDD solid 1px;
+}
+.bubble:after 
+{
+	content: '';
+	position: absolute;
+	border-style: solid;
+	border-width: 12px 12px 12px 0;
+	border-color: transparent #eee;
+	display: block;
+	width: 0;
+	z-index: 1;
+	left: -12px;
+	top: 40px;
+}
+/* If you need a border:
+.bubble:before 
+{
+	content: '';
+	position: absolute;
+	border-style: solid;
+	border-width: 13px 13px 13px 0;
+	border-color: transparent #DDD;
+	display: block;
+	width: 0;
+	z-index: 0;
+	left: -15px;
+	top: 39px;
+}
+*/
+
+/////////////////////
+// MAP INFO WINDOW //
+/////////////////////
+.info-window {
+	background: url('http://lorempixel.com/300/300/cities');
+	padding-top: 100px;
+	.infoContainer {
+		background: rgba(240,240,240,0.85);
+		padding: 10px;
+		h3 {
+			font-weight: 700;
+			margin-top: 0;
+		}
+		p {
+			margin: 10px  0 0 0;
+			font-style: italic;
+		}
+	}
+}
 
 @import '_stars';
 @import '_index';
 @import '_search';
+@import '_restaurant';
+@import 'signup';

@@ -1,0 +1,38 @@
+{% extends 'main/base.html' %}
+
+{% block body_block %}
+
+<section class="signup">
+
+<div class="container">
+	{% if registered %}
+		<h3>Thanks for signing up!</h3>
+		<a href="{% url 'main.views.index' %}">Return to homepage</a>
+	{% else %}
+		<h2>Sign up for <span class="ee-font">eatease</span></h2>
+		<form id="user_form" method="POST" action="/signup/" enctype="multipart/form-data">
+		{% csrf_token %}
+			<div>
+				<label for="id_first_name">First Name</label> <br/>
+				{{ user_form.first_name }}
+			</div>
+			<div>
+				<label for="id_last_name">Last Name</label> <br/>
+				{{ user_form.last_name }}
+			</div>
+			<div>
+				<label for="id_username">Username</label> <br/>
+				{{ user_form.username }}
+			</div>
+			<div>
+				<label for="id_password">Password</label> <br/>
+				{{ user_form.password }}
+			</div>
+			<button type="submit" class="filled-green large" disabled>Sign Up</button>
+		</form>
+	{% endif %}
+</div>
+
+</section>
+
+{% endblock body_block %}

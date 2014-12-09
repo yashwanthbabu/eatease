@@ -1,0 +1,24 @@
+.signup {
+	.ee-font {
+		color: $green;
+		font-weight: 400;
+		font-size: 1.3em;
+	}
+	form {
+		width: 100%;
+		max-width: 300px;
+		div {
+			margin-bottom: 20px;
+		}
+		input {
+			width: 100%;
+			margin-top: 8px;
+			border: 2px solid #ddd;
+			padding: 8px;
+		}
+		button {
+			width: 100%;
+			text-align: center;
+		}
+	}
+}

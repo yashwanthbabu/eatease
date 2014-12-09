@@ -12,6 +12,7 @@
 </head>
 <body>
 
+<div class="body-container">
 
 <header>
 	<div class="container">
@@ -21,7 +22,7 @@
 				<a href="">
 					<li>Log In</li>
 				</a>
-				<a href="">
+				<a href="{% url 'main.views.register' %}">
 					<li class="signup">Sign Up</li>
 				</a>
 			</ul>
@@ -34,6 +35,8 @@
 
 {% block body_block %}
 {% endblock %}
+
+</div>
 
 <footer></footer>
 

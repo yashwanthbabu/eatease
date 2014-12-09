@@ -75,25 +75,39 @@ article, aside, details, figcaption, figure, footer, header, hgroup, main, menu,
     font-style: normal;
 }
 */
-/* line 43, ../sass/main.scss */
+/* line 41, ../sass/main.scss */
 *, *::before, *::after {
   box-sizing: border-box;
 }
 
-/* line 46, ../sass/main.scss */
+/* line 44, ../sass/main.scss */
+html {
+  height: 100%;
+}
+
+/* line 47, ../sass/main.scss */
 body {
   font-family: "Open Sans", Helvetica, Arial, sans-serif;
   color: #555;
   background: #effaf8;
   font-size: 14px;
+  height: 100%;
 }
 
-/* line 52, ../sass/main.scss */
+/* line 54, ../sass/main.scss */
+.body-container {
+  height: auto;
+  min-height: 100%;
+  padding-bottom: 200px;
+  margin-bottom: -200px;
+}
+
+/* line 60, ../sass/main.scss */
 .container {
   margin: 0 10px;
 }
 @media (min-width: 768px) {
-  /* line 52, ../sass/main.scss */
+  /* line 60, ../sass/main.scss */
   .container {
     margin: 0 auto;
     width: 90%;
@@ -102,7 +116,7 @@ body {
   }
 }
 
-/* line 61, ../sass/main.scss */
+/* line 69, ../sass/main.scss */
 .center {
   display: block;
   margin-left: auto;
@@ -110,19 +124,19 @@ body {
 }
 
 @media (min-width: 768px) {
-  /* line 66, ../sass/main.scss */
+  /* line 74, ../sass/main.scss */
   .row {
     margin-bottom: 20px;
   }
 }
 
-/* line 72, ../sass/main.scss */
+/* line 80, ../sass/main.scss */
 .col-3 {
   vertical-align: top;
   margin-bottom: 20px;
 }
 @media (min-width: 768px) {
-  /* line 72, ../sass/main.scss */
+  /* line 80, ../sass/main.scss */
   .col-3 {
     width: 33%;
     padding: 0 10px;
@@ -132,13 +146,18 @@ body {
   }
 }
 
-/* line 83, ../sass/main.scss */
+/* line 91, ../sass/main.scss */
+.ee-font {
+  font-family: "Pacifico", serif;
+}
+
+/* line 94, ../sass/main.scss */
 a {
   text-decoration: none;
   color: #555;
 }
 
-/* line 87, ../sass/main.scss */
+/* line 98, ../sass/main.scss */
 header {
   background: #2e9881;
   height: 60px;
@@ -146,19 +165,19 @@ header {
   width: 100%;
   z-index: 1000;
 }
-/* line 93, ../sass/main.scss */
+/* line 104, ../sass/main.scss */
 header nav {
   display: inline-block;
   float: right;
   clear: left;
   margin-top: 12px;
 }
-/* line 98, ../sass/main.scss */
+/* line 109, ../sass/main.scss */
 header nav ul {
   list-style-type: none;
   margin: 0;
 }
-/* line 101, ../sass/main.scss */
+/* line 112, ../sass/main.scss */
 header nav ul li {
   display: inline-block;
   font-weight: bold;
@@ -168,33 +187,33 @@ header nav ul li {
   transition: background, color 0.2s;
   font-size: 0.95em;
 }
-/* line 109, ../sass/main.scss */
+/* line 120, ../sass/main.scss */
 header nav ul li:hover {
   color: #c7eee6;
 }
-/* line 113, ../sass/main.scss */
+/* line 124, ../sass/main.scss */
 header nav ul .signup {
   border: 2px solid #fff;
   margin-left: 10px;
 }
-/* line 116, ../sass/main.scss */
+/* line 127, ../sass/main.scss */
 header nav ul .signup:hover {
   color: #c7eee6;
   border-color: #c7eee6;
 }
 
-/* line 124, ../sass/main.scss */
+/* line 135, ../sass/main.scss */
 .filler {
   height: 60px;
 }
 
-/* line 127, ../sass/main.scss */
+/* line 138, ../sass/main.scss */
 footer {
-  background: #444;
+  background: #777;
   height: 200px;
 }
 
-/* line 131, ../sass/main.scss */
+/* line 142, ../sass/main.scss */
 h1 {
   color: #fff;
   font-family: "Pacifico", serif;
@@ -203,48 +222,54 @@ h1 {
   display: inline-block;
 }
 
-/* line 138, ../sass/main.scss */
+/* line 149, ../sass/main.scss */
 h2 {
   font-family: "Montserrat", Helvetica, Arial, sans-serif;
   font-size: 2.8em;
   margin: 0.9em 0;
   color: #666;
   font-weight: 700;
-  text-align: center;
 }
 
-/* line 146, ../sass/main.scss */
+/* line 156, ../sass/main.scss */
 h3 {
   font-family: "Montserrat", Helvetica, Arial, sans-serif;
   font-size: 1.8em;
   margin-top: 1em;
 }
 
-/* line 151, ../sass/main.scss */
+/* line 161, ../sass/main.scss */
+h4 {
+  font-family: "Montserrat", Helvetica, Arial, sans-serif;
+  font-size: 1.3em;
+  margin-top: 1em;
+}
+
+/* line 166, ../sass/main.scss */
 p {
   margin-bottom: 1em;
 }
 
-/* line 154, ../sass/main.scss */
+/* line 169, ../sass/main.scss */
 .inline {
   display: inline-block;
   vertical-align: top;
 }
 
-/* line 158, ../sass/main.scss */
+/* line 173, ../sass/main.scss */
 input[type=text] {
   border: 1px solid #ccc;
   border-radius: 2px;
   padding: 8px;
 }
 
-/* line 164, ../sass/main.scss */
+/* line 179, ../sass/main.scss */
 button {
   border: 0;
   border-radius: 2px;
 }
 
-/* line 168, ../sass/main.scss */
+/* line 183, ../sass/main.scss */
 button.filled-red {
   padding: 6px 10px;
   background: #db535a;
@@ -254,16 +279,16 @@ button.filled-red {
   -webkit-transition: background, 0.2s;
   transition: background, 0.2s;
 }
-/* line 173, ../sass/main.scss */
+/* line 188, ../sass/main.scss */
 button.filled-red:hover {
   background: #d7424a;
 }
-/* line 176, ../sass/main.scss */
+/* line 191, ../sass/main.scss */
 button.filled-red:focus {
   outline: none;
 }
 
-/* line 180, ../sass/main.scss */
+/* line 195, ../sass/main.scss */
 button.filled-green {
   padding: 6px 10px;
   background: #2e9881;
@@ -273,16 +298,16 @@ button.filled-green {
   -webkit-transition: background, 0.2s;
   transition: background, 0.2s;
 }
-/* line 185, ../sass/main.scss */
+/* line 200, ../sass/main.scss */
 button.filled-green:hover {
   background: #298874;
 }
-/* line 188, ../sass/main.scss */
+/* line 203, ../sass/main.scss */
 button.filled-green:focus {
   outline: none;
 }
 
-/* line 192, ../sass/main.scss */
+/* line 207, ../sass/main.scss */
 button.filled-grey {
   padding: 6px 10px;
   background: #aaa;
@@ -292,25 +317,25 @@ button.filled-grey {
   -webkit-transition: background, 0.2s;
   transition: background, 0.2s;
 }
-/* line 197, ../sass/main.scss */
+/* line 212, ../sass/main.scss */
 button.filled-grey:hover {
   background: #a0a0a0;
 }
-/* line 200, ../sass/main.scss */
+/* line 215, ../sass/main.scss */
 button.filled-grey:focus {
   outline: none;
 }
 
-/* line 204, ../sass/main.scss */
+/* line 219, ../sass/main.scss */
 button.filled-grey.active {
   background: #2e9881;
 }
-/* line 206, ../sass/main.scss */
+/* line 221, ../sass/main.scss */
 button.filled-grey.active:hover {
   background: #2e9881;
 }
 
-/* line 210, ../sass/main.scss */
+/* line 225, ../sass/main.scss */
 button.outline {
   padding: 6px 10px;
   background: #fff;
@@ -322,24 +347,96 @@ button.outline {
   -webkit-transition: background, 0.2s;
   transition: background, 0.2s;
 }
-/* line 217, ../sass/main.scss */
+/* line 232, ../sass/main.scss */
 button.outline:hover {
   color: #fff;
   background: #2e9881;
 }
-/* line 221, ../sass/main.scss */
+/* line 236, ../sass/main.scss */
 button.outline:focus {
   outline: none;
 }
 
-/* line 225, ../sass/main.scss */
+/* line 240, ../sass/main.scss */
+button.large {
+  padding: 12px 16px;
+  font-size: 1.2em;
+  font-family: "Montserrat", Helvetica, Arial, sans-serif;
+}
+
+/* line 245, ../sass/main.scss */
+button:disabled {
+  cursor: not-allowed;
+}
+
+/* line 248, ../sass/main.scss */
 .table-row {
   display: table-row;
 }
 
-/* line 228, ../sass/main.scss */
+/* line 251, ../sass/main.scss */
 .table-cell {
   display: table-cell;
+}
+
+/* line 254, ../sass/main.scss */
+.bubble {
+  position: relative;
+  padding: 10px;
+  background: #eee;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+}
+
+/* line 264, ../sass/main.scss */
+.bubble:after {
+  content: '';
+  position: absolute;
+  border-style: solid;
+  border-width: 12px 12px 12px 0;
+  border-color: transparent #eee;
+  display: block;
+  width: 0;
+  z-index: 1;
+  left: -12px;
+  top: 40px;
+}
+
+/* If you need a border:
+.bubble:before 
+{
+	content: '';
+	position: absolute;
+	border-style: solid;
+	border-width: 13px 13px 13px 0;
+	border-color: transparent #DDD;
+	display: block;
+	width: 0;
+	z-index: 0;
+	left: -15px;
+	top: 39px;
+}
+*/
+/* line 296, ../sass/main.scss */
+.info-window {
+  background: url("http://lorempixel.com/300/300/cities");
+  padding-top: 100px;
+}
+/* line 299, ../sass/main.scss */
+.info-window .infoContainer {
+  background: rgba(240, 240, 240, 0.85);
+  padding: 10px;
+}
+/* line 302, ../sass/main.scss */
+.info-window .infoContainer h3 {
+  font-weight: 700;
+  margin-top: 0;
+}
+/* line 306, ../sass/main.scss */
+.info-window .infoContainer p {
+  margin: 10px  0 0 0;
+  font-style: italic;
 }
 
 /* line 1, ../sass/_stars.scss */
@@ -711,9 +808,8 @@ button.outline:focus {
   font-size: 1.4em;
   text-shadow: 0px 0px 20px rgba(0, 0, 0, 0.9);
 }
-
-/* line 31, ../sass/_index.scss */
-.ee-font {
+/* line 29, ../sass/_index.scss */
+.full-width h3 .ee-font {
   font-family: "Pacifico", serif;
   font-size: 1.5em;
   margin-right: 5px;
@@ -790,9 +886,10 @@ button.outline:focus {
 /* line 87, ../sass/_index.scss */
 .front-page h2 {
   margin-top: 0;
+  text-align: center;
 }
 
-/* line 91, ../sass/_index.scss */
+/* line 92, ../sass/_index.scss */
 .feed-panel {
   background: url("http://lorempixel.com/400/600/food");
   background-size: cover;
@@ -802,7 +899,7 @@ button.outline:focus {
   -webkit-border-radius: 2px;
   border-radius: 2px;
 }
-/* line 97, ../sass/_index.scss */
+/* line 98, ../sass/_index.scss */
 .feed-panel h3 {
   font-family: "Montserrat", Helvetica, Arial, sans-serif;
   color: #fff;
@@ -810,7 +907,7 @@ button.outline:focus {
   font-weight: 700;
   margin: 0;
 }
-/* line 104, ../sass/_index.scss */
+/* line 105, ../sass/_index.scss */
 .feed-panel div {
   margin-top: 120px;
   background: #ddd;
@@ -818,30 +915,31 @@ button.outline:focus {
   color: #288470;
   padding: 10px 10px 20px 10px;
 }
-/* line 110, ../sass/_index.scss */
+/* line 111, ../sass/_index.scss */
 .feed-panel div h4 {
   font-size: 1.2em;
   text-align: center;
   margin-bottom: 10px;
 }
-/* line 115, ../sass/_index.scss */
+/* line 116, ../sass/_index.scss */
 .feed-panel div span {
   display: block;
   margin: 10px auto;
 }
-/* line 119, ../sass/_index.scss */
+/* line 120, ../sass/_index.scss */
 .feed-panel div p {
   text-align: right;
 }
 
-/* line 124, ../sass/_index.scss */
+/* line 125, ../sass/_index.scss */
 #howItWorks {
-  background: #2e9881;
+  background: #49a591;
   color: #fff;
 }
-/* line 127, ../sass/_index.scss */
+/* line 128, ../sass/_index.scss */
 #howItWorks h2 {
   color: #fff;
+  text-align: center;
 }
 
 /* line 1, ../sass/_search.scss */
@@ -1075,4 +1173,191 @@ button.outline:focus {
   margin-top: 8px;
   color: #888;
   content: "No ratings yet";
+}
+
+/* line 1, ../sass/_restaurant.scss */
+.rest-page-header {
+  background: #eee;
+  padding: 40px 0;
+  overflow: auto;
+}
+/* line 5, ../sass/_restaurant.scss */
+.rest-page-header h2 {
+  margin-top: 0;
+}
+/* line 7, ../sass/_restaurant.scss */
+.rest-page-header h2 span.header-rating {
+  margin: 0 0 0 20px;
+}
+/* line 10, ../sass/_restaurant.scss */
+.rest-page-header h2 span.header-num {
+  height: 20px;
+  font-size: 0.4em;
+  font-weight: 400;
+  position: relative;
+  bottom: 3px;
+}
+/* line 18, ../sass/_restaurant.scss */
+.rest-page-header .img-holder {
+  display: inline-block;
+  border: 10px solid #fff;
+  float: left;
+  margin-right: 80px;
+}
+@media (max-width: 767px) {
+  /* line 18, ../sass/_restaurant.scss */
+  .rest-page-header .img-holder {
+    margin-right: 30px;
+  }
+}
+/* line 27, ../sass/_restaurant.scss */
+.rest-page-header .rest-header-content {
+  float: left;
+}
+/* line 29, ../sass/_restaurant.scss */
+.rest-page-header .rest-header-content .ratings-table {
+  margin-right: 80px;
+  float: left;
+}
+@media (max-width: 767px) {
+  /* line 29, ../sass/_restaurant.scss */
+  .rest-page-header .rest-header-content .ratings-table {
+    margin-right: 30px;
+    margin-bottom: 20px;
+  }
+}
+/* line 37, ../sass/_restaurant.scss */
+.rest-page-header .rest-header-content .table-row {
+  font-weight: 700;
+}
+/* line 39, ../sass/_restaurant.scss */
+.rest-page-header .rest-header-content .table-row .table-cell:nth-child(1) {
+  padding-right: 10px;
+}
+/* line 44, ../sass/_restaurant.scss */
+.rest-page-header .address {
+  display: inline-block;
+  float: left;
+  vertical-align: top;
+  padding-top: 10px;
+}
+
+/* line 51, ../sass/_restaurant.scss */
+.col-1of3 {
+  padding: 20px 10px;
+  height: 400px;
+  display: inline-block;
+  width: 100%;
+}
+@media (min-width: 768px) {
+  /* line 51, ../sass/_restaurant.scss */
+  .col-1of3 {
+    width: 33%;
+    margin-right: -2px;
+    vertical-align: top;
+  }
+}
+
+/* line 62, ../sass/_restaurant.scss */
+.col-2of3 {
+  padding: 20px 10px;
+  height: 400px;
+  display: inline-block;
+  width: 100%;
+}
+@media (min-width: 768px) {
+  /* line 62, ../sass/_restaurant.scss */
+  .col-2of3 {
+    width: 66.6%;
+    margin-right: -2px;
+  }
+}
+
+/* line 72, ../sass/_restaurant.scss */
+.review-panel {
+  -moz-border-radius: 3px;
+  -webkit-border-radius: 3px;
+  border-radius: 3px;
+  padding: 10px 10px 10px 0;
+  overflow: auto;
+  border-bottom: 1px solid #ccc;
+  background: #fff;
+  margin-bottom: 20px;
+}
+/* line 79, ../sass/_restaurant.scss */
+.review-panel p {
+  margin-top: 10px;
+  margin-bottom: 0;
+}
+/* line 83, ../sass/_restaurant.scss */
+.review-panel .review-user {
+  float: left;
+  width: 33%;
+  text-align: center;
+}
+/* line 88, ../sass/_restaurant.scss */
+.review-panel .review-user img {
+  -moz-border-radius: 100px;
+  -webkit-border-radius: 100px;
+  border-radius: 100px;
+}
+/* line 92, ../sass/_restaurant.scss */
+.review-panel h4 {
+  margin-top: 0;
+  margin-bottom: 10px;
+}
+/* line 96, ../sass/_restaurant.scss */
+.review-panel .ratings-table {
+  margin-bottom: 15px;
+  font-weight: 700;
+}
+/* line 103, ../sass/_restaurant.scss */
+.review-panel .review-long {
+  display: none;
+}
+/* line 106, ../sass/_restaurant.scss */
+.review-panel .more, .review-panel .less {
+  font-weight: 700;
+  cursor: pointer;
+}
+
+/* line 111, ../sass/_restaurant.scss */
+.review-main {
+  padding: 15px;
+  float: left;
+  width: 66%;
+}
+
+/* line 116, ../sass/_restaurant.scss */
+#rest-page-map-canvas {
+  width: 100%;
+  height: 300px;
+}
+
+/* line 2, ../sass/_signup.scss */
+.signup .ee-font {
+  color: #2e9881;
+  font-weight: 400;
+  font-size: 1.3em;
+}
+/* line 7, ../sass/_signup.scss */
+.signup form {
+  width: 100%;
+  max-width: 300px;
+}
+/* line 10, ../sass/_signup.scss */
+.signup form div {
+  margin-bottom: 20px;
+}
+/* line 13, ../sass/_signup.scss */
+.signup form input {
+  width: 100%;
+  margin-top: 8px;
+  border: 2px solid #ddd;
+  padding: 8px;
+}
+/* line 19, ../sass/_signup.scss */
+.signup form button {
+  width: 100%;
+  text-align: center;
 }

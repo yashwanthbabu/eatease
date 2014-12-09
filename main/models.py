@@ -2,6 +2,26 @@ from django.db import models
 from django.contrib.auth.models import User
 
 
+##################
+#  USER PROFILE  #
+##################
+class UserProfile(models.Model):
+	user = models.OneToOneField(User)
+
+	picture = models.ImageField(upload_to='profile_images', blank=True)
+
+	# What the user's dietary requirements?
+	nuts = models.BooleanField(default=False)
+	gluten = models.BooleanField(default=False)
+	vegetarian = models.BooleanField(default=False)
+	vegan = models.BooleanField(default=False)
+	dairy = models.BooleanField(default=False)
+
+	def __str__(self):
+		return self.user.username
+
+
+
 ################
 #  RESTAURANT  #
 ################
@@ -17,12 +37,10 @@ class Restaurant(models.Model):
 	def __str__(self):
 		return self.name
 
-	
 
 
-
-#####################
-#  RESTAURANT-MENU  #
+##################### Show which allergens are marked on menu / if they have a separate allergy menu
+#  RESTAURANT-MENU  # Haven't implemented this yet
 #####################
 class RestaurantMenus(models.Model):
 	restaurant = models.OneToOneField(Restaurant)
@@ -38,7 +56,7 @@ class RestaurantMenus(models.Model):
 	dairy_marked 		= models.BooleanField(default=False)
 	dairy_sep    		= models.BooleanField(default=False)
 
-	general_sep = models.BooleanField(default=False) #If there is a separate menu with any/all dietary choices
+	general_sep = models.BooleanField(default=False) # If there is a separate menu with any/all dietary choices
 
 
 

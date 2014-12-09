@@ -1,13 +1,13 @@
 from django.template import RequestContext
 from django.shortcuts import render, render_to_response
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import HttpResponse
 from main.models import Restaurant, Review, ReviewDietary, RestaurantMenus
+from .forms import UserForm
 from django.db.models import Count, Avg
 from django.core import serializers
-import json, math
 from types import *
 
-import math, datetime
+import json, math, datetime
 
 #################
 #   FUNCTIONS   #
@@ -17,23 +17,23 @@ import math, datetime
 def getStars(size, colour, value):
 	if str(value) == '0.5':
 		return 'star' + '-' + size + '-' + colour + '-' + 'half' 
-	if str(value) == '1.0':
+	if str(value) in ['1.0', '1']:
 		return 'star' + '-' + size + '-' + colour + '-' + '1' 
 	if str(value) == '1.5':
 		return 'star' + '-' + size + '-' + colour + '-' + '1half'
-	if str(value) == '2.0':
+	if str(value) in ['2.0', '2']:
 		return 'star' + '-' + size + '-' + colour + '-' + '2' 
 	if str(value) == '2.5':
 		return 'star' + '-' + size + '-' + colour + '-' + '2half'
-	if str(value) == '3.0':
+	if str(value) in ['3.0', '3']:
 		return 'star' + '-' + size + '-' + colour + '-' + '3' 
 	if str(value) == '3.5':
 		return 'star' + '-' + size + '-' + colour + '-' + '3half' 
-	if str(value) == '4.0':
+	if str(value) in ['4.0', '4']:
 		return 'star' + '-' + size + '-' + colour + '-' + '4' 
 	if str(value) == '4.5':
 		return 'star' + '-' + size + '-' + colour + '-' + '4half'
-	if str(value) == '5.0':
+	if str(value) in ['5.0', '5']:
 		return 'star' + '-' + size + '-' + colour + '-' + '5'
 	if value is None:
 		return 'noRatings'
@@ -70,11 +70,47 @@ def lngLowerBound(origin_lng, origin_lat,  distance):
 	r = 3959 * math.cos(origin_lat * 0.01745) # radius of circle at origin_lat
 	return origin_lng + (distance / r) * 57.2958
 
+
+
+##################### 
+# USER REGISTRATION # NOTE: Not quite working. Need to fix
+#####################
+def register(request):
+
+	# Was registration successful? Set to False initially
+	registered = False
+
+	# Process Form data
+	if request.method == 'POST':
+		# Get User Form data
+		user_form = UserForm(data=request.POST)
+
+		# If form is valid, save
+		if user_form.is_valid():
+			user = user_form.save()
+			user.set_password(user.password)
+			user.save()
+		# If form not valid, print errors
+		else:
+			print (user_form.errors)
+
+	# If no POST data, just render User Form ready for input
+	else:
+		user_form = UserForm()
+
+	return render(
+		request,
+		'main/signup.html',
+		{
+			'user_form': user_form,
+			'registered': registered,
+		},
+	)
+
 #############
 #   INDEX   #
 #############
 def index(request):
-	context = RequestContext(request)
 
 	recent_reviews_1 = Review.objects.order_by('-date_added')[:3]
 	recent_reviews_2 = Review.objects.order_by('-date_added')[3:6]
@@ -86,20 +122,19 @@ def index(request):
 	for rev in recent_reviews_2:
 			rev.date_added = rev.date_added.date()
 
-	return render_to_response(
+	return render(
+		request,
 		'main/index.html', 
 		{
 			'recent_reviews_1': recent_reviews_1,
 			'recent_reviews_2': recent_reviews_2,
 		}, 
-		context,
 	)
 
 ##############
 #   SEARCH   #
 ##############
 def search(request, place_url=''):
-	context = RequestContext(request)
 
 	place_str = URLToString(place_url)
 
@@ -204,7 +239,7 @@ def search(request, place_url=''):
 			searchQuery['avg_dairy'] = 'SELECT ROUND(2 * AVG(dairy_rating), 0) / 2 FROM main_review WHERE main_review.restaurant_id = main_restaurant.id'
 
 	# NOTE : Need to filter Restaurant.objects by search radius!
-	restaurants = Restaurant.objects.all().extra(select=searchQuery)
+	restaurants = Restaurant.objects.all().extra(select=searchQuery).extra(order_by=['-avg_overall'])
 	restaurants = list(restaurants)
 	# Only display restaurants which satisfy the search requirements
 	restaurants = [rest for rest in restaurants if ( satisfiesFilter(rest.avg_overall, getVars['o'])
@@ -221,17 +256,17 @@ def search(request, place_url=''):
 	for rest in restaurants:
 		rest.overall_star_class = getStars('big', 'red', rest.avg_overall)
 		rest.all_stars = [
-			{'name': 'Nuts',   		'star_class': getStars('small', 'green', rest.avg_nuts)}, 
-			{'name': 'Gluten',   		'star_class': getStars('small', 'green', rest.avg_gluten)}, 
-			{'name': 'Vegetarian',   	'star_class': getStars('small', 'green', rest.avg_veg)}, 
-			{'name': 'Vegan',   		'star_class': getStars('small', 'green', rest.avg_vegan)}, 
-			{'name': 'Dairy',  		'star_class': getStars('small', 'green', rest.avg_dairy)}, 
+			{'name': 'Nuts',   		'star_class': getStars('small', 'green', rest.avg_nuts) }, 
+			{'name': 'Gluten',   	'star_class': getStars('small', 'green', rest.avg_gluten) }, 
+			{'name': 'Vegetarian',  'star_class': getStars('small', 'green', rest.avg_veg) }, 
+			{'name': 'Vegan',   	'star_class': getStars('small', 'green', rest.avg_vegan) }, 
+			{'name': 'Dairy',  		'star_class': getStars('small', 'green', rest.avg_dairy) }, 
 		]
 
-	return render_to_response(
+	return render(
+		request,
 		'main/search.html',
 		{
-			'restaurants': restaurants,
 			'place_str': place_str,
 			'sr_list': sr_list,
 			'overall_list': overall_list,
@@ -240,170 +275,63 @@ def search(request, place_url=''):
 			'veg_list': veg_list,
 			'vegan_list': vegan_list,
 			'dairy_list': dairy_list,
-			'getVars': getVars,
-			'rest': restaurants,
-			'location': location,
+			'restaurants': restaurants,
 		},
-		context,
 	)
-
-
-##############################
-#   SEARCH GET RESTAURANTS   #
-##############################
-def search_list(request):
-
-
-	context = RequestContext(request)
-
-	"""
-	sr = ''
-	o  = ''
-	n  = ''
-	g  = ''
-	v  = ''
-	ve = ''
-	d  = ''
- 	
-	if request.method == 'GET':
-		sr = request.GET['sr']
-		o = request.GET['o']
-		n = request.GET['n']
-		g = request.GET['g']
-		v = request.GET['v']
-		ve = request.GET['ve']
-		d = request.GET['d']
-	"""
-
-	# TODO: Take filters and query db to get only the entries which match the search terms
-	# Currently displays ALL restaurants
-
-	
-	restaurants = Restaurant.objects.values()
-
-	reviews = Review.objects.values()
-
-	for rest in restaurants:
-		recent_reviews = reviews.filter(restaurant_id=rest['id']).order_by('date_added')[:2]
-
-		rest.update({'recent_reviews1': recent_reviews[0]['title']})
-		rest.update({'recent_reviews2': recent_reviews[1]['title']})
-
-		rest_reviews = reviews.filter(restaurant=rest['id'])
-
-		rest.update({'num_reviews': len(rest_reviews) })
-
-		avg_overall        = rest_reviews.aggregate(Avg('overall_rating'))
-		avg_overall        = avg_overall['overall_rating__avg']
-		avg_overall        = 0.5 * math.ceil(2.0 * avg_overall)
-		overall_star_class = getStars('small', 'red', avg_overall)
-
-		rest.update({'overall_star_class': overall_star_class })
-
-
-	restaurants_dict = [rest for rest in restaurants]
-
-	restaurants_list = json.dumps(restaurants_dict)
-
-	return HttpResponse(restaurants_list)
-	
-	
 
 
 #######################
 #   RESTAURANT PAGE   #
 #######################
-def restaurant(request, rest_url):
-	context = RequestContext(request)
+def restaurant(request, rest_url=''):
 
-	rest_name = URLToString(rest_url)
-	rest_details = Restaurant.objects.filter(name=rest_name)
+	rest_id = rest_url
+	
 
+	# Getting number of reviews and average ratings.
+	searchQuery = {
+		'num_reviews': 'SELECT COUNT(*) FROM main_review WHERE main_review.restaurant_id = ' + rest_id,
+		'avg_overall': 'SELECT ROUND(2 * AVG(overall_rating), 0) / 2 FROM main_review WHERE main_review.restaurant_id = ' + rest_id,
+		'avg_nuts': 'SELECT ROUND(2 * AVG(nuts_rating), 0) / 2 FROM main_review WHERE main_review.restaurant_id = ' + rest_id,
+		'avg_gluten': 'SELECT ROUND(2 * AVG(gluten_rating), 0) / 2 FROM main_review WHERE main_review.restaurant_id = ' + rest_id,
+		'avg_veg': 'SELECT ROUND(2 * AVG(vegetarian_rating), 0) / 2 FROM main_review WHERE main_review.restaurant_id = ' + rest_id,
+		'avg_vegan': 'SELECT ROUND(2 * AVG(vegan_rating), 0) / 2 FROM main_review WHERE main_review.restaurant_id = ' + rest_id,
+		'avg_dairy': 'SELECT ROUND(2 * AVG(dairy_rating), 0) / 2 FROM main_review WHERE main_review.restaurant_id = ' + rest_id,
+	}
+	# Perform the query
+	rest_details = Restaurant.objects.filter(pk=rest_id).extra(select=searchQuery)
+	rest_details = rest_details[0]
+
+	# Add star css classes
+	rest_details.overall_star_class = getStars('big', 'red', rest_details.avg_overall)
+	rest_details.all_stars = [
+		{ 'name': 'Nuts', 		'star_class': getStars('big', 'green', rest_details.avg_nuts) },
+		{ 'name': 'Gluten', 	'star_class': getStars('big', 'green', rest_details.avg_gluten) },
+		{ 'name': 'Vegetarian', 'star_class': getStars('big', 'green', rest_details.avg_veg) },
+		{ 'name': 'Vegan', 		'star_class': getStars('big', 'green', rest_details.avg_vegan) },
+		{ 'name': 'Dairy', 		'star_class': getStars('big', 'green', rest_details.avg_dairy) },
+	]
+
+	# Getting all reviews 
+	rest_reviews = Review.objects.filter(restaurant_id=rest_id)
+
+	for rev in rest_reviews:
+		rev.overall_star_class = getStars('small', 'red', rev.overall_rating)
+		rev.all_stars = [
+			{ 'name': 'Overall',	'star_class': getStars('small', 'red', rev.overall_rating) },
+			{ 'name': 'Nuts',		'star_class': getStars('small', 'green', rev.nuts_rating) },
+			{ 'name': 'Gluten',		'star_class': getStars('small', 'green', rev.gluten_rating) },
+			{ 'name': 'Vegetarian',	'star_class': getStars('small', 'green', rev.vegetarian_rating) },
+			{ 'name': 'Vegan',		'star_class': getStars('small', 'green', rev.vegan_rating) },
+			{ 'name': 'Dairy',		'star_class': getStars('small', 'green', rev.dairy_rating) },
+		]
+		rev.all_stars = [x for x in rev.all_stars if x['star_class'] not in ['noRatings', None] ]
 
 	return render_to_response(
+		request,
 		'main/restaurant.html',
 		{
-			'rest_name': rest_name,
-			'rest_details': rest_details,
+			'rest': rest_details,
+			'reviews': rest_reviews,
 		},
-		context,
 	)
-
-
-
-
-####################
-#   FIILTER TEST   #
-####################
-def filter_test(request):
-	context = RequestContext(request)
-
-	getVars = { 'sr': '', 'o': '', 'n': '', 'g': '', 'v': '', 've': '', 'd': '' }
-
-	# Assigning GET vars to dictionary
-	if request.method == 'GET':
-		for var in getVars:
-			getVar = request.GET.get(var)
-			try:
-				getVar = int(getVar)
-			except ValueError:
-				getVar = 0
-			except TypeError:
-				getVar = 0
-			if 0 <= getVar < 6:
-				getVars[var] = getVar
-			else:
-				getVars[var] = 0
-
-	# NOTE : Need to filter Restaurant.objects by search radius
-	restaurants = Restaurant.objects.all().extra(select={
-										'avg_overall':
-											'SELECT ROUND(2 * AVG(overall_rating), 0) / 2 FROM main_review \
-											WHERE main_review.restaurant_id = main_restaurant.id',
-										'avg_nuts': 
-											'SELECT ROUND(2 * AVG(nuts_rating), 0) / 2 FROM main_review \
-											WHERE main_review.restaurant_id = main_restaurant.id',
-										'avg_gluten':
-											'SELECT ROUND(2 * AVG(gluten_rating), 0) / 2 FROM main_review \
-											WHERE main_review.restaurant_id = main_restaurant.id',
-										'avg_veg':
-											'SELECT ROUND(2 * AVG(vegetarian_rating), 0) / 2 FROM main_review \
-											WHERE main_review.restaurant_id = main_restaurant.id',
-										'avg_vegan':
-											'SELECT ROUND(2 * AVG(vegan_rating), 0) / 2 FROM main_review \
-											WHERE main_review.restaurant_id = main_restaurant.id',
-										'avg_dairy':
-											'SELECT ROUND(2 * AVG(dairy_rating), 0) / 2 FROM main_review \
-											WHERE main_review.restaurant_id = main_restaurant.id',
-										}).order_by('-avg_overall', '-avg_gluten')
-
-	restaurants = list(restaurants)
-
-	restaurants = [rest for rest in restaurants if (satisfiesFilter(rest.avg_overall, getVars['o']) 
-													and satisfiesFilter(rest.avg_nuts, getVars['n'])
-													and satisfiesFilter(rest.avg_gluten, getVars['g'])
-													and satisfiesFilter(rest.avg_veg, getVars['v'])
-													and satisfiesFilter(rest.avg_vegan, getVars['ve'])
-													and satisfiesFilter(rest.avg_dairy, getVars['d'])
-												)
-											]
-
-	
-	revs = Review.objects.all()
-
-	if request.method == 'POST':
-		location = request.POST.get('location')
-	else:
-		location = 'Did not work'
-
-	return render_to_response(
-		'main/filter_test.html',
-		{
-			'getVars': getVars,
-			'rest': restaurants,
-			'reviews': revs,
-			'location': location,
-		},
-		context,
-	)
-	

@@ -26,12 +26,12 @@
 		text-align: center;
 		font-size: 1.4em;
 		text-shadow: 0px 0px 20px rgba(0, 0, 0, 0.9);
+		.ee-font {
+			font-family: $pacifico;
+			font-size: 1.5em;
+			margin-right: 5px;
+		}
 	}
-}
-.ee-font {
-	font-family: $pacifico;
-	font-size: 1.5em;
-	margin-right: 5px;
 }
 .search-container {
 	margin: 0 auto;
@@ -86,6 +86,7 @@
 	padding: 2.4em 0;
 	h2 {
 		margin-top: 0;
+		text-align: center;
 	}
 }
 .feed-panel {
@@ -122,9 +123,10 @@
 	}
 }
 #howItWorks {
-	background: $green;
+	background: desaturate(lighten($green, 8%), 15%);
 	color: #fff;
 	h2 {
 		color: #fff;
+		text-align: center;
 	}
 }
