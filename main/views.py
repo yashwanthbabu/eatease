@@ -66,7 +66,7 @@ def latUpperBound(origin_lat, distance):
 def lngLowerBound(origin_lng, origin_lat,  distance):
 	r = 3959 * math.cos(origin_lat * 0.01745) # radius of circle at origin_lat
 	return origin_lng - (distance / r) * 57.2958
-def lngLowerBound(origin_lng, origin_lat,  distance):
+def lngUpperBound(origin_lng, origin_lat,  distance):
 	r = 3959 * math.cos(origin_lat * 0.01745) # radius of circle at origin_lat
 	return origin_lng + (distance / r) * 57.2958
 
@@ -111,14 +111,14 @@ def register(request):
 #   INDEX   #
 #############
 def index(request):
-
+	# Get first 3 recent reviews
 	recent_reviews_1 = Review.objects.order_by('-date_added')[:3]
+	# Get next 3 recent reviews
 	recent_reviews_2 = Review.objects.order_by('-date_added')[3:6]
 
+	# Put date into readable format
 	for rev in recent_reviews_1:
 			rev.date_added = rev.date_added.date()
-			rev.star_class = getStars('big', 'red', rev.overall_rating)
-
 	for rev in recent_reviews_2:
 			rev.date_added = rev.date_added.date()
 
@@ -135,15 +135,19 @@ def index(request):
 #   SEARCH   #
 ##############
 def search(request, place_url=''):
-
+	# Search location
 	place_str = URLToString(place_url)
 
+	# List with search radius values
+	# To be updated with selected value
 	sr_list = [
 		{'1': {'text': '1 mile', 'selected': ''} },
 		{'3': {'text': '3 miles', 'selected': ''} },
 		{'5': {'text': '5 miles', 'selected': ''} },
 		{'6': {'text': '+ 5 miles', 'selected': ''} },
 	]	
+	# List with search filter values
+	# To be updated with selected value
 	overall_list = []
 	nuts_list = []
 	gluten_list = []
@@ -284,10 +288,9 @@ def search(request, place_url=''):
 #   RESTAURANT PAGE   #
 #######################
 def restaurant(request, rest_url=''):
-
+	# Getting restaurant primary key from URL
 	rest_id = rest_url
 	
-
 	# Getting number of reviews and average ratings.
 	searchQuery = {
 		'num_reviews': 'SELECT COUNT(*) FROM main_review WHERE main_review.restaurant_id = ' + rest_id,
