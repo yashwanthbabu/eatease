@@ -9,4 +9,4 @@ This repository contains the code for a newly rebuilt version of the application
 
 Built with Django 1.7.
 
-eatease.pythonanywhere.com
+http://eatease.pythonanywhere.com
