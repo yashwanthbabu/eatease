@@ -8,7 +8,7 @@
 		@media (min-width: 768px) {
 			width: 380px;
 		}
-		width: 220px;
+		width: 210px;
 		margin-right: 7px;
 		height: 40px;
 		border: 0;
@@ -141,6 +141,9 @@
 		height: 200px;
 		background: url('http://lorempixel.com/300/300/city');
 		margin-right: 15px;
+		@media (max-width: 410px) {
+			width: 140px;
+		}
 		div {
 			padding: 9px 10px 10px 10px;
 			background: rgba(30,40,40,0.85);
@@ -183,4 +186,12 @@
 	margin-top: 8px;
 	color: #888;
 	content: "No ratings yet";
+}
+
+#search-map-canvas {
+	height: 300px;
+	width: 100%;
+	@media (min-width: 768px) {
+		height: 500px;
+	}
 }

@@ -145,6 +145,10 @@ h1 {
 	line-height: 1.2em;
 	font-size: 3.6em;
 	display: inline-block;
+	@media (max-width: 410px) {
+		font-size: 3.2em;
+		line-height: 1.3em;
+	}
 }
 h2 {
 	font-family: $montserrat;

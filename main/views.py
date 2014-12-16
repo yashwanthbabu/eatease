@@ -330,7 +330,7 @@ def restaurant(request, rest_url=''):
 		]
 		rev.all_stars = [x for x in rev.all_stars if x['star_class'] not in ['noRatings', None] ]
 
-	return render_to_response(
+	return render(
 		request,
 		'main/restaurant.html',
 		{
