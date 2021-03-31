@@ -28,7 +28,7 @@ iniparse==0.4
 ipython==1.2.1
 lockfile==0.8
 logilab-common==0.61.0
-lxml==3.3.3
+lxml==4.6.3
 meld3==0.6.10
 mercurial==2.8.2
 mock==1.0.1
