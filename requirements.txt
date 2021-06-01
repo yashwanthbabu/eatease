@@ -63,7 +63,7 @@ supervisor==3.0b2
 system-service==0.1.6
 tortoisehg==2.10
 unity-lens-photos==1.0
-urllib3==1.7.1
+urllib3==1.26.5
 vboxapi==1.0
 virtualenv==1.11.6
 virtualenv-clone==0.2.5
