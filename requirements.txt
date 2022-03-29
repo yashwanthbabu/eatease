@@ -36,7 +36,7 @@ numpy==1.8.2
 oauthlib==0.6.1
 oneconf==0.3.7
 pacparser==1
-paramiko==1.12.4
+paramiko==2.10.1
 passlib==1.6.2
 pexpect==3.1
 piston-mini-client==0.7.5
