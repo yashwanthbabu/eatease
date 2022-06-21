@@ -32,7 +32,7 @@ lxml==3.3.3
 meld3==0.6.10
 mercurial==2.8.2
 mock==1.0.1
-numpy==1.8.2
+numpy==1.22.0
 oauthlib==0.6.1
 oneconf==0.3.7
 pacparser==1
