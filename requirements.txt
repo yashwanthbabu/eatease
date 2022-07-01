@@ -59,7 +59,7 @@ six==1.5.2
 software-center-aptd-plugins==0.0.0
 ssh-import-id==3.21
 stevedore==0.15
-supervisor==3.0b2
+supervisor==3.0.1
 system-service==0.1.6
 tortoisehg==2.10
 unity-lens-photos==1.0
