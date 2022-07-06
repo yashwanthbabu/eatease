@@ -22,7 +22,7 @@ django-envvars==0.1
 duplicity==0.6.23
 ecdsa==0.11
 galternatives==0.9
-html5lib==0.999
+html5lib==0.999999999
 httplib2==0.8
 iniparse==0.4
 ipython==1.2.1
